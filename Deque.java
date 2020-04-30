@@ -1,6 +1,8 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+// TODO: check which variables can be made final
+// TODO: am I loitering anywhere?
 public class Deque<Item> implements Iterable<Item> {
     private Node first; // top of stack (most recently added node)
     private Node last; // bottom of stack (least recently added node)
@@ -11,27 +13,27 @@ public class Deque<Item> implements Iterable<Item> {
         private Node next;
         private Node previous;
 
-        public Node getPrevious() {
+        private Node getPrevious() {
             return previous;
         }
 
-        public void setPrevious(Node previous) {
+        private void setPrevious(Node previous) {
             this.previous = previous;
         }
 
-        public Node getNext() {
+        private Node getNext() {
             return next;
         }
 
-        public void setNext(Node next) {
+        private void setNext(Node next) {
             this.next = next;
         }
 
-        public Item getItem() {
+        private Item getItem() {
             return item;
         }
 
-        public void setItem(Item item) {
+        private void setItem(Item item) {
             this.item = item;
         }
     }
@@ -63,14 +65,13 @@ public class Deque<Item> implements Iterable<Item> {
             first.setItem(item);
             first.setNext(oldfirst);
             oldfirst.setPrevious(first);
-            n++;
         }
         else {
             first = new Node();
             last = first;
             first.setItem(item);
-            n++;
         }
+        n++;
     }
 
     // add the item to the back
@@ -86,14 +87,13 @@ public class Deque<Item> implements Iterable<Item> {
             newLast.setPrevious(last);
             last.setNext(newLast);
             last = newLast;
-            n++;
         }
         else {
             first = new Node();
             last = first;
             first.setItem(item);
-            n++;
         }
+        n++;
     }
 
     // remove and return the item from the front
@@ -107,14 +107,12 @@ public class Deque<Item> implements Iterable<Item> {
             if (n > 1) {
                 first = first.getNext();
                 first.setPrevious(null);
-                n--;
             }
             else {
                 first = null;
                 last = null;
-                n--;
             }
-
+            n--;
             return oldFirst.getItem();
         }
         else {
@@ -128,19 +126,17 @@ public class Deque<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException("deque is empty dawg");
         }
-        // if only one node in deque
-        // TODO: we're doing two comparisons here ... see removeFirst()
-        else if (!isEmpty() && n == 1) {
-            first = null;
-            last = null;
-            n--;
-        }
         // More than one node? Find 2nd last node and make that the new last
         else if (n > 1) {
             last = last.getPrevious();
             last.setNext(null);
-            n--;
         }
+        // if only one node in deque
+        else {
+            first = null;
+            last = null;
+        }
+        n--;
         return oldLast.getItem();
     }
 
@@ -151,9 +147,10 @@ public class Deque<Item> implements Iterable<Item> {
 
     private class ListIterator implements Iterator<Item> {
         private Node current = first;
+        private boolean lastNode = false;
 
         public boolean hasNext() {
-            return current.getNext() != null;
+            return !lastNode;
         }
 
         public void remove() {
@@ -161,11 +158,18 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         public Item next() {
-            if (current.getNext() == null) {
-                throw new NoSuchElementException("no more elements in the deque dawg");
+            if (current == null) {
+                throw new NoSuchElementException("The deque's empty my dawg");
             }
             Item item = current.getItem();
-            current = current.getNext();
+
+            if (current.getNext() != null) {
+                current = current.getNext();
+            }
+            else {
+                lastNode = true;
+            }
+
             return item;
         }
     }
@@ -293,6 +297,24 @@ public class Deque<Item> implements Iterable<Item> {
             System.out.println("PASSED: deque is empty again");
         }
 
-        // TODO: write tests for iterator!
+        try {
+            for (String s : deq) {
+                System.out.println(s);
+            }
+        }
+        catch (NoSuchElementException ex) {
+            System.out.println("PASSED: threw expection for trying to iterate an empty deque");
+        }
+
+
+        Deque<Integer> intDeq = new Deque<>();
+        for (int i = 0; i < 10; i++) {
+            intDeq.addFirst(i);
+        }
+
+        System.out.println("OUTPUT for iterator on intDeq:");
+        for (Integer i : intDeq) {
+            System.out.println("Iterator Output: " + i);
+        }
     }
 }
