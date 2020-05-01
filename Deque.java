@@ -1,8 +1,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-// TODO: check which variables can be made final
-// TODO: am I loitering anywhere?
 public class Deque<Item> implements Iterable<Item> {
     private Node first; // top of stack (most recently added node)
     private Node last; // bottom of stack (least recently added node)
@@ -76,7 +74,6 @@ public class Deque<Item> implements Iterable<Item> {
 
     // add the item to the back
     public void addLast(Item item) {
-        // TODO: move n++ out of the if-statement?
         if (item == null) {
             throw new IllegalArgumentException("cannot have a null argument");
         }

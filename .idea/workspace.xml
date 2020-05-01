@@ -50,10 +50,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.RandomizedQueue">
+  <component name="RunManager" selected="Application.Permutation">
     <configuration name="Deque" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Deque" />
       <module name="Algorithms, Part I" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Permutation" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Permutation" />
+      <module name="Algorithms, Part I" />
+      <option name="PROGRAM_PARAMETERS" value="3" />
+      <option name="INPUT_FILE" value="$PROJECT_DIR$/distinct.txt" />
       <method v="2" />
     </configuration>
     <configuration name="RandomizedQueue" type="Application" factoryName="Application">
@@ -64,6 +71,11 @@
     <configuration default="true" type="Application" factoryName="Application">
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.Deque" />
+      <item itemvalue="Application.Permutation" />
+      <item itemvalue="Application.RandomizedQueue" />
+    </list>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -73,16 +85,5 @@
       <are-packages-shown value="true" />
       <is-autoscroll-to-source value="true" />
     </todo-panel>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/RandomizedQueue.java</url>
-          <line>209</line>
-          <option name="timeStamp" value="104" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
